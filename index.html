@@ -3025,23 +3025,27 @@ TRACK_WEEKS.unshift({
     'Keep cheatsheet.md: every API you had to look up this week. Reread it Sunday night.'
   ],
   steps: [
-    { id: 'setup', n: 'Set up your workspace', day: 'Tue Oct 13', h: 0.5,
-      why: 'One project with every library the week needs, the data downloaded, and a local LLM running, so no step stalls on installs.',
+    { id: 'setup', n: 'Set up your workspace', day: 'Tue Oct 13', h: 1,
+      why: 'One project with every library the week needs, the data downloaded, and a local LLM served by vLLM, so no step stalls on installs.',
       watch: [
         { id: 'v-uv', t: 'UV: a faster, all-in-one package manager to replace pip and venv', u: 'https://www.youtube.com/watch?v=AMdG7IjgSPM', k: 'Corey Schafer · uv init, uv add, uv run' },
-        { id: 'v-ollama', t: 'Learn Ollama in 15 minutes: run LLM models locally for free', u: 'https://www.youtube.com/watch?v=UtSSMs6ObqY', k: 'Tech With Tim · install, pull, run' }
+        { id: 'v-vllm', t: 'vLLM: easily deploying and serving LLMs', u: 'https://www.youtube.com/watch?v=q5IF2PHA5SA', k: 'NeuralNine · vllm serve and the OpenAI-compatible API' },
+        { id: 'v-vllm-win', t: 'Install and run LLMs locally with vLLM on Windows', u: 'https://www.youtube.com/watch?v=APUDwZvcdYs', k: 'Aleksandar Haber · the WSL setup' }
       ],
       read: [
         { id: 'r-uv', t: 'uv: working on projects', u: 'https://docs.astral.sh/uv/guides/projects/', s: 'uv docs', m: 10, w: 'Project layout, uv add and the lockfile.' },
-        { id: 'r-ollama', t: 'Ollama quickstart', u: 'https://docs.ollama.com/quickstart', s: 'Ollama docs', m: 10, w: 'Install, pull a model and call it from Python.' }
+        { id: 'r-vllm', t: 'vLLM quickstart', u: 'https://docs.vllm.ai/en/stable/getting_started/quickstart/', s: 'vLLM docs', m: 15, w: 'Install, vllm serve, and calling the server with the OpenAI client.' },
+        { id: 'r-vllm-tools', t: 'vLLM tool calling', u: 'https://docs.vllm.ai/en/stable/features/tool_calling/', s: 'vLLM docs', m: 10, w: 'Why the server needs --enable-auto-tool-choice and a parser before agents work.' },
+        { id: 'r-wsl', t: 'Install WSL', u: 'https://learn.microsoft.com/en-us/windows/wsl/install', s: 'Microsoft docs', m: 10, w: 'vLLM does not run natively on Windows; it runs in WSL2 with the 4090 passed through.' }
       ],
       tasks: [
-        { id: 'p0', t: 'Create the ecom-recs repo with uv and Python 3.11+. Add numpy, pandas, pyarrow, scipy, torch (CUDA build), langchain, langchain-ollama, langgraph and jupyter. Confirm torch.cuda.is_available() is True on the 4090.' },
+        { id: 'p0', t: 'Create the ecom-recs repo with uv and Python 3.11+. Add numpy, pandas, pyarrow, scipy, torch (CUDA build), langchain, langchain-openai, langgraph and jupyter. Confirm torch.cuda.is_available() is True on the 4090.' },
         { id: 'p1', t: 'Download RetailRocket from Kaggle (events, item properties, category tree) into data/. The pandas and PyTorch steps use it.' },
-        { id: 'p2', t: 'Install Ollama and pull a small instruct model that supports tool calling, for example qwen3:8b. An API key you already have also works.' },
+        { id: 'p-wsl', t: 'Install WSL2 with Ubuntu (wsl --install) and confirm nvidia-smi inside Ubuntu shows the 4090. The Windows NVIDIA driver is enough; do not install a Linux driver inside WSL.' },
+        { id: 'p2', t: 'In Ubuntu, install vLLM in its own environment, away from the project (it pins its own torch): uv venv ~/vllm, then source ~/vllm/bin/activate, then uv pip install vllm. Start the server: vllm serve Qwen/Qwen3-8B --max-model-len 8192 --gpu-memory-utilization 0.85 --enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3. Stop it (Ctrl+C) before the PyTorch step, because vLLM reserves most of the GPU memory.' },
         { id: 'p-esci', t: 'Download the ESCI product file (shopping_queries_dataset_products.parquet) from github.com/amazon-science/esci-data. The LangChain step uses its product titles.' }
       ],
-      check: 'uv run python -c "import torch, pandas, langchain" works, and ollama run qwen3:8b answers.' },
+      check: 'uv run python -c "import torch, pandas, langchain" works, and curl http://localhost:8000/v1/models from Windows lists Qwen/Qwen3-8B.' },
 
     { id: 'py', n: 'Python core', day: 'Tue Oct 13', h: 2,
       why: 'The everyday toolkit: collections, comprehensions, sorting, dataclasses, type hints and safe file reading.',
@@ -3131,7 +3135,8 @@ TRACK_WEEKS.unshift({
       ],
       read: [
         { id: 'r6', t: 'LangChain quickstart', u: 'https://docs.langchain.com/oss/python/langchain/quickstart', s: 'LangChain docs (v1)', m: 30, w: 'init_chat_model, tools and create_agent in the current 1.x API.' },
-        { id: 'r-so', t: 'Structured output', u: 'https://docs.langchain.com/oss/python/langchain/structured-output', s: 'LangChain docs (v1)', m: 15, w: 'Pydantic schemas and with_structured_output.' }
+        { id: 'r-so', t: 'Structured output', u: 'https://docs.langchain.com/oss/python/langchain/structured-output', s: 'LangChain docs (v1)', m: 15, w: 'Pydantic schemas and with_structured_output.' },
+        { id: 'r-lc-vllm', t: 'vLLM chat integration', u: 'https://docs.langchain.com/oss/python/integrations/chat/vllm', s: 'LangChain docs', m: 10, w: 'Pointing LangChain’s OpenAI chat model at a vLLM server.' }
       ],
       drills: ['lc1', 'lc2', 'lc3', 'lc4'],
       check: 'Your extractor returns typed objects and you have measured its accuracy on titles you labelled yourself.' },
@@ -3397,10 +3402,14 @@ with torch.inference_mode():
     top20 = scores.topk(20, dim=1).indices` }
     ] },
     { t: 'LangChain (v1)', items: [
-      { id: 'lc1', p: 'Create a chat model (local Ollama or a provider) and ask it to clean up a messy product title using a system and a user message.', s: `from langchain.chat_models import init_chat_model
+      { id: 'lc1', p: 'Connect to your local vLLM server and ask the model to clean up a messy product title using a system and a user message.', s: `from langchain.chat_models import init_chat_model
 
-model = init_chat_model("qwen3:8b", model_provider="ollama", temperature=0)
-# or init_chat_model("openai:<model>") / ("anthropic:<model>") with an API key
+# vLLM speaks the OpenAI API, so the "openai" provider works with a local base_url.
+model = init_chat_model(
+    "Qwen/Qwen3-8B", model_provider="openai",
+    base_url="http://localhost:8000/v1", api_key="EMPTY", temperature=0,
+    extra_body={"chat_template_kwargs": {"enable_thinking": False}},  # skip Qwen3 thinking for short tasks
+)
 reply = model.invoke([
     {"role": "system", "content": "You write short, clean product titles."},
     {"role": "user", "content": "Rewrite: 'NEW!!! wireless earbuds bt5.3 BLACK free ship'"},
