@@ -402,6 +402,23 @@ section.ti p:last-child{margin-bottom:0}
 .tk-play::after{content:"";position:absolute;left:12px;top:6px;border-left:8px solid var(--sheet);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
 .tk-vt{font-size:13.5px;font-weight:600;line-height:1.35}
 .tk-vt small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:1px}
+.tk-rules{margin:0 0 14px;padding-left:20px;font-size:13.5px;color:var(--muted)}
+.tk-rules li{margin:2px 0}
+.tk-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.tk-step>details{border:1px solid var(--line);border-radius:10px;background:var(--sheet)}
+.tk-step>details>summary{display:flex;gap:12px;align-items:center;padding:12px 14px;cursor:pointer;list-style:none}
+.tk-step>details>summary::-webkit-details-marker{display:none}
+.tk-step>details[open]>summary{border-bottom:1px solid var(--soft)}
+.tk-sn{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--kbg,var(--soft));color:var(--k,var(--ink))}
+.tk-step.fin .tk-sn{background:var(--ffn-bg);color:var(--ffn)}
+.tk-st{display:flex;flex-direction:column;min-width:0}
+.tk-st b{font-size:15px}
+.tk-st small{color:var(--muted);font-size:12.5px}
+.tk-sbody{padding:4px 14px 12px}
+.tk-sbody>.tk-why{display:block;margin:8px 0 4px}
+.tk-vlink{display:inline-flex;gap:8px;align-items:center}
+.tk-vlink .tk-play{flex:none;transform:scale(.8)}
+.tk-ckpt{margin:14px 0 0;padding:8px 12px;border-left:3px solid var(--k,var(--bus));background:var(--kbg,var(--soft));border-radius:0 6px 6px 0;font-size:13.5px}
 .tk-days td{font-size:13.5px}
 .tk-days td.m{white-space:nowrap}
 .tk-dg{display:flex;align-items:baseline;gap:8px;margin:18px 0 4px!important;font-size:14.5px!important}
@@ -3000,33 +3017,140 @@ TRACK_WEEKS.unshift({
   id: 'wp', n: -1, start: '2026-10-13', end: '2026-10-18', ph: 'R', h: 15,
   light: 'Starts Tuesday. Anything unfinished can spill into W0, which is a light week.',
   title: 'Coding refresher: Python, pandas, PyTorch, LangChain',
-  goal: 'Get your hands back on the keyboard before the plan starts. One toolkit per day, written from a blank file before you look at any solution. The aim is to stop reaching for documentation on everyday operations. LangChain and LangGraph are not in this vacancy; they get one evening because they serve the LLM catalog-enrichment item (W7) and the AI engineer roles you also apply to.',
-  days: [
-    { d: 'Tue Oct 13', h: 2, t: 'Python core: data structures, comprehensions, functions, dataclasses, typing, errors, files', g: 'Python 1–6' },
-    { d: 'Wed Oct 14', h: 2, t: 'Python part 2 (generators, context managers, classes, asyncio basics) and NumPy', g: 'Python 7–10, NumPy 1–4' },
-    { d: 'Thu Oct 15', h: 2, t: 'pandas on RetailRocket: loading, selection, groupby, pivot, merge', g: 'pandas 1–6' },
-    { d: 'Fri Oct 16', h: 1.5, t: 'pandas sessions, time series and splits; scikit-learn pipelines', g: 'pandas 7–10, scikit-learn 1–3' },
-    { d: 'Sat Oct 17', h: 4.5, t: 'PyTorch: tensors, autograd, modules, DataLoader, training loop on the 4090; the warm-up build', g: 'PyTorch 1–7, Build' },
-    { d: 'Sun Oct 18', h: 3, t: 'LangChain and LangGraph with a local model; Git and shell; quiz', g: 'LangChain 1–4, LangGraph 1–4, Git and shell 1–3' }
-  ],
-  read: [
-    { t: 'The Python Tutorial, sections 4–9', u: 'https://docs.python.org/3/tutorial/', s: 'Python docs', m: 90, w: 'A fast skim of control flow, data structures, modules, errors and classes. Read only what feels rusty.' },
-    { t: 'NumPy: the absolute basics for beginners', u: 'https://numpy.org/doc/stable/user/absolute_beginners.html', s: 'NumPy docs', m: 40, w: 'Shapes, indexing, broadcasting and reductions.' },
-    { t: '10 minutes to pandas', u: 'https://pandas.pydata.org/docs/user_guide/10min.html', s: 'pandas docs', m: 30, w: 'The whole API surface in one page.' },
-    { t: 'Group by: split-apply-combine', u: 'https://pandas.pydata.org/docs/user_guide/groupby.html', s: 'pandas docs', m: 30, w: 'agg versus transform versus apply: the part most people get wrong in interviews.' },
-    { t: 'scikit-learn: getting started', u: 'https://scikit-learn.org/stable/getting_started.html', s: 'scikit-learn docs', m: 20, w: 'Estimators, pipelines and model selection.' },
-    { t: 'PyTorch: Learn the Basics', u: 'https://docs.pytorch.org/tutorials/beginner/basics/intro.html', s: 'PyTorch tutorials', m: 120, w: 'Tensors, datasets, modules, autograd, the optimization loop, saving and loading.' },
-    { t: 'LangChain quickstart', u: 'https://docs.langchain.com/oss/python/langchain/quickstart', s: 'LangChain docs (v1)', m: 30, w: 'init_chat_model, tools and create_agent in the current 1.x API.' },
-    { t: 'LangGraph quickstart and persistence', u: 'https://docs.langchain.com/oss/python/langgraph/quickstart', s: 'LangGraph docs', m: 40, w: 'State, nodes, edges, conditional routing and checkpointers.' }
-  ],
-  prac: [
-    'Create the ecom-recs repo with uv and Python 3.11+; add numpy, pandas, scipy, scikit-learn, torch (CUDA build), langchain, langgraph and jupyter. Confirm torch.cuda.is_available() on the 4090.',
-    'Download RetailRocket from Kaggle (events, item properties, category tree). The pandas and PyTorch drills use it.',
-    'Install Ollama and pull a small instruct model that supports tool calling (for example qwen3:8b), or use an API key you already have.',
-    'One notebook per day under notebooks/prep/. Type every solution; do not paste.',
-    'Give each drill 10 minutes before opening its solution. Tick only the ones you solved alone.',
+  goal: 'Get your hands back on the keyboard before the plan starts. Work through the steps in order. In each one, watch the videos for the idea, skim the docs, then write every drill from a blank file before you open its solution. By Sunday you should handle everyday Python, pandas, PyTorch and LangChain work without reaching for documentation.',
+  rules: [
+    'One notebook per step under notebooks/prep/. Type every solution; do not paste.',
+    'Give each drill 10 minutes before opening its solution. Tick it only if you solved it alone.',
+    'Watch videos at 1.25–1.5×. Skip any part you already know; the drills tell you whether you really do.',
     'Keep cheatsheet.md: every API you had to look up this week. Reread it Sunday night.'
   ],
+  steps: [
+    { id: 'setup', n: 'Set up your workspace', day: 'Tue Oct 13', h: 0.5,
+      why: 'One project with every library the week needs, the data downloaded, and a local LLM running, so no step stalls on installs.',
+      watch: [
+        { id: 'v-uv', t: 'UV: a faster, all-in-one package manager to replace pip and venv', u: 'https://www.youtube.com/watch?v=AMdG7IjgSPM', k: 'Corey Schafer · uv init, uv add, uv run' },
+        { id: 'v-ollama', t: 'Learn Ollama in 15 minutes: run LLM models locally for free', u: 'https://www.youtube.com/watch?v=UtSSMs6ObqY', k: 'Tech With Tim · install, pull, run' }
+      ],
+      read: [
+        { id: 'r-uv', t: 'uv: working on projects', u: 'https://docs.astral.sh/uv/guides/projects/', s: 'uv docs', m: 10, w: 'Project layout, uv add and the lockfile.' },
+        { id: 'r-ollama', t: 'Ollama quickstart', u: 'https://docs.ollama.com/quickstart', s: 'Ollama docs', m: 10, w: 'Install, pull a model and call it from Python.' }
+      ],
+      tasks: [
+        { id: 'p0', t: 'Create the ecom-recs repo with uv and Python 3.11+. Add numpy, pandas, pyarrow, scipy, torch (CUDA build), langchain, langchain-ollama, langgraph and jupyter. Confirm torch.cuda.is_available() is True on the 4090.' },
+        { id: 'p1', t: 'Download RetailRocket from Kaggle (events, item properties, category tree) into data/. The pandas and PyTorch steps use it.' },
+        { id: 'p2', t: 'Install Ollama and pull a small instruct model that supports tool calling, for example qwen3:8b. An API key you already have also works.' },
+        { id: 'p-esci', t: 'Download the ESCI product file (shopping_queries_dataset_products.parquet) from github.com/amazon-science/esci-data. The LangChain step uses its product titles.' }
+      ],
+      check: 'uv run python -c "import torch, pandas, langchain" works, and ollama run qwen3:8b answers.' },
+
+    { id: 'py', n: 'Python core', day: 'Tue Oct 13', h: 2,
+      why: 'The everyday toolkit: collections, comprehensions, sorting, dataclasses, type hints and safe file reading.',
+      watch: [
+        { id: 'v-comp', t: 'Comprehensions: how they work and why you should use them', u: 'https://www.youtube.com/watch?v=3dt4OGnU5sM', k: 'Corey Schafer · list, dict and set comprehensions' },
+        { id: 'v-dc', t: 'Python dataclasses will save you hours', u: 'https://www.youtube.com/watch?v=vBH6GRJ1REM', k: 'mCoding · frozen, slots, defaults' },
+        { id: 'v-types', t: 'The real reason you should use type hints in Python', u: 'https://www.youtube.com/watch?v=0oBLMwHdZ2Y', k: 'ArjanCodes · typing in practice' }
+      ],
+      read: [
+        { id: 'r0', t: 'The Python Tutorial, sections 4–9', u: 'https://docs.python.org/3/tutorial/', s: 'Python docs', m: 90, w: 'A fast skim of control flow, data structures, modules, errors and classes. Read only what feels rusty.' }
+      ],
+      drills: ['py1', 'py2', 'py3', 'py4', 'py5', 'py6'],
+      check: 'You can write Counter, defaultdict, a frozen dataclass and a sort with a tuple key without looking anything up.' },
+
+    { id: 'py2', n: 'Python: generators, context managers, classes, asyncio', day: 'Wed Oct 14', h: 1,
+      why: 'The features that production code and interviews lean on: lazy iteration, resource cleanup, Python’s data model and concurrency.',
+      watch: [
+        { id: 'v-gen', t: 'Generators: how to use them and the benefits you receive', u: 'https://www.youtube.com/watch?v=bD05uGo_sVI', k: 'Corey Schafer · yield and memory' },
+        { id: 'v-ctx', t: 'Context managers: efficiently managing resources', u: 'https://www.youtube.com/watch?v=-aKFBoZpiqA', k: 'Corey Schafer · with, @contextmanager' },
+        { id: 'v-dunder', t: 'Python OOP Tutorial 5: special (magic/dunder) methods', u: 'https://www.youtube.com/watch?v=3ohzBxoFHAY', k: 'Corey Schafer · __len__, __getitem__, __repr__' },
+        { id: 'v-async', t: 'AsyncIO: complete guide to asynchronous programming with animations', u: 'https://www.youtube.com/watch?v=oAkLSJNr5zY', k: 'Corey Schafer · event loop, tasks, gather' }
+      ],
+      read: [
+        { id: 'r-async', t: 'Coroutines and tasks', u: 'https://docs.python.org/3/library/asyncio-task.html', s: 'Python docs', m: 20, w: 'async/await, create_task, gather and timeouts.' }
+      ],
+      drills: ['py7', 'py8', 'py9', 'py10'],
+      check: 'You can explain why three awaited sleeps of 0.3, 0.1 and 0.2 s take about 0.3 s under gather.' },
+
+    { id: 'np', n: 'NumPy', day: 'Wed Oct 14', h: 0.5,
+      why: 'Shapes, broadcasting and vectorized math sit under both pandas and PyTorch.',
+      watch: [
+        { id: 'v-np', t: 'Python NumPy tutorial for beginners', u: 'https://www.youtube.com/watch?v=QUT1VHiLmmI', k: 'freeCodeCamp (Keith Galli) · arrays, indexing, broadcasting' }
+      ],
+      read: [
+        { id: 'r1', t: 'NumPy: the absolute basics for beginners', u: 'https://numpy.org/doc/stable/user/absolute_beginners.html', s: 'NumPy docs', m: 40, w: 'Shapes, indexing, broadcasting and reductions.' }
+      ],
+      drills: ['np1', 'np2', 'np3', 'np4'],
+      check: 'You can predict the result shape of a broadcast and get a top-k without sorting the whole array.' },
+
+    { id: 'pd', n: 'pandas: load, select, group, pivot, merge', day: 'Thu Oct 15', h: 2,
+      why: 'The operations you use on every dataset, practised on RetailRocket.',
+      watch: [
+        { id: 'v-pd2', t: 'Pandas Part 2: DataFrame and Series basics, selecting rows and columns', u: 'https://www.youtube.com/watch?v=zmdjNSmRXF4', k: 'Corey Schafer · loc and iloc' },
+        { id: 'v-pd4', t: 'Pandas Part 4: filtering with conditionals', u: 'https://www.youtube.com/watch?v=Lw2rlcxScZY', k: 'Corey Schafer · boolean masks' },
+        { id: 'v-pd8', t: 'Pandas Part 8: grouping and aggregating', u: 'https://www.youtube.com/watch?v=txMdrV1Ut64', k: 'Corey Schafer · groupby, agg' },
+        { id: 'v-merge', t: 'How to combine DataFrames in pandas: merge, join, concat', u: 'https://www.youtube.com/watch?v=wzN1UyfRSWI', k: 'Chart Explorers · joins' }
+      ],
+      read: [
+        { id: 'r2', t: '10 minutes to pandas', u: 'https://pandas.pydata.org/docs/user_guide/10min.html', s: 'pandas docs', m: 30, w: 'The whole API surface in one page.' },
+        { id: 'r3', t: 'Group by: split-apply-combine', u: 'https://pandas.pydata.org/docs/user_guide/groupby.html', s: 'pandas docs', m: 30, w: 'agg versus transform versus apply: the part most people get wrong in interviews.' },
+        { id: 'r-merge', t: 'Merge, join, concatenate and compare', u: 'https://pandas.pydata.org/docs/user_guide/merging.html', s: 'pandas docs', m: 20, w: 'Join types and the validate= argument that catches duplicate keys.' }
+      ],
+      drills: ['pd1', 'pd2', 'pd3', 'pd4', 'pd5', 'pd6'],
+      check: 'You can write a groupby + merge + pivot pipeline without looking anything up, and the row count after a left merge is what you expected.' },
+
+    { id: 'pd2', n: 'pandas: dtypes, time series, sessions and splits', day: 'Fri Oct 16', h: 1.5,
+      why: 'Time is what recommendation data is organised around: sessions, daily activity and leak-free train/test splits.',
+      watch: [
+        { id: 'v-pd9', t: 'Pandas Part 9: cleaning data, casting datatypes and handling missing values', u: 'https://www.youtube.com/watch?v=KdmPHEnPJPs', k: 'Corey Schafer · astype, NaN' },
+        { id: 'v-pd10', t: 'Pandas Part 10: working with dates and time series data', u: 'https://www.youtube.com/watch?v=UFuo7EHI8zc', k: 'Corey Schafer · to_datetime, resample' }
+      ],
+      read: [
+        { id: 'r-ts', t: 'Time series / date functionality', u: 'https://pandas.pydata.org/docs/user_guide/timeseries.html', s: 'pandas docs', m: 25, w: 'Timestamps, Timedelta, resample and rolling windows.' }
+      ],
+      drills: ['pd7', 'pd8', 'pd9', 'pd10'],
+      check: 'You have a time split with an assert that proves no test event is older than the newest train event, and a sparse user × item matrix.' },
+
+    { id: 'pt', n: 'PyTorch: tensors to a training loop', day: 'Sat Oct 17', h: 3,
+      why: 'Tensors, autograd, modules, DataLoader and the training loop, ending with matrix factorization on the 4090.',
+      watch: [
+        { id: 'v-pt2', t: 'PyTorch Tutorial 02: tensor basics', u: 'https://www.youtube.com/watch?v=exaWOE8jvy8', k: 'Patrick Loeber · creation, ops, devices' },
+        { id: 'v-pt3', t: 'PyTorch Tutorial 03: gradient calculation with autograd', u: 'https://www.youtube.com/watch?v=DbeIqrwb_dE', k: 'Patrick Loeber · requires_grad, backward' },
+        { id: 'v-pt6', t: 'PyTorch Tutorial 06: training pipeline, model, loss and optimizer', u: 'https://www.youtube.com/watch?v=VVDHU_TWwUg', k: 'Patrick Loeber · the loop' },
+        { id: 'v-pt9', t: 'PyTorch Tutorial 09: Dataset and DataLoader, batch training', u: 'https://www.youtube.com/watch?v=PXOzkkB5eH0', k: 'Patrick Loeber · batching' },
+        { id: 'v-micrograd', t: 'Optional deep dive: building micrograd (backprop from scratch)', u: 'https://www.youtube.com/watch?v=VMj-3S1tku0', k: 'Andrej Karpathy · 2.5 h, only if autograd still feels like magic' }
+      ],
+      read: [
+        { id: 'r5', t: 'PyTorch: Learn the Basics', u: 'https://docs.pytorch.org/tutorials/beginner/basics/intro.html', s: 'PyTorch tutorials', m: 120, w: 'Tensors, datasets, modules, autograd, the optimization loop, saving and loading.' }
+      ],
+      drills: ['pt1', 'pt2', 'pt3', 'pt4', 'pt5', 'pt6', 'pt7'],
+      check: 'You can write a training loop from memory: device moves, zero_grad, backward, step, eval mode and no_grad.' },
+
+    { id: 'lc', n: 'LangChain (v1): models, structured output, tools', day: 'Sun Oct 18', h: 1.5,
+      why: 'Call an LLM, get typed output back and give it tools, using the current 1.x API with a local model.',
+      watch: [
+        { id: 'v-lc', t: 'LangChain full crash course: AI agents in Python', u: 'https://www.youtube.com/watch?v=J7j5tCB_y4w', k: 'NeuralNine · v1 API: models, tools, agents' }
+      ],
+      read: [
+        { id: 'r6', t: 'LangChain quickstart', u: 'https://docs.langchain.com/oss/python/langchain/quickstart', s: 'LangChain docs (v1)', m: 30, w: 'init_chat_model, tools and create_agent in the current 1.x API.' },
+        { id: 'r-so', t: 'Structured output', u: 'https://docs.langchain.com/oss/python/langchain/structured-output', s: 'LangChain docs (v1)', m: 15, w: 'Pydantic schemas and with_structured_output.' }
+      ],
+      drills: ['lc1', 'lc2', 'lc3', 'lc4'],
+      check: 'Your extractor returns typed objects and you have measured its accuracy on titles you labelled yourself.' },
+
+    { id: 'lg', n: 'LangGraph: state, nodes, edges, memory', day: 'Sun Oct 18', h: 1.5,
+      why: 'Explicit workflows with branches, loops and memory, and the tool-calling loop written by hand.',
+      watch: [
+        { id: 'v-lg-intro', t: 'LangChain Academy: Introduction to LangGraph', u: 'https://www.youtube.com/watch?v=29XE10U6ooc', k: 'LangChain · course intro; the free course is linked below' },
+        { id: 'v-lg', t: 'LangGraph explained for beginners', u: 'https://www.youtube.com/watch?v=cUfLrn3TM3M', k: 'KodeKloud · state, nodes, edges' }
+      ],
+      read: [
+        { id: 'r7', t: 'LangGraph quickstart and persistence', u: 'https://docs.langchain.com/oss/python/langgraph/quickstart', s: 'LangGraph docs', m: 40, w: 'State, nodes, edges, conditional routing and checkpointers.' },
+        { id: 'r-lga', t: 'Introduction to LangGraph (free course), module 1', u: 'https://academy.langchain.com/courses/intro-to-langgraph', s: 'LangChain Academy', m: 60, w: 'Simple graph, chains, router, agent and memory, with notebooks.' }
+      ],
+      drills: ['lg1', 'lg2', 'lg3', 'lg4'],
+      check: 'You can explain state, nodes, edges and checkpointers, and when a graph beats a single agent call.' }
+  ],
+  read: [],
+  prac: [],
   drills: [
     { t: 'Python', items: [
       { id: 'py1', p: 'Return the 3 most common lowercase words in a text, with counts.', s: `from collections import Counter
@@ -3182,34 +3306,6 @@ i_codes, i_index = pd.factorize(train["itemid"])
 X = csr_matrix((w, (u_codes, i_codes)), shape=(len(u_index), len(i_index)))
 # Duplicate (user, item) pairs are summed.` }
     ] },
-    { t: 'scikit-learn', items: [
-      { id: 'sk1', p: 'Predict whether a visitor buys in the test week from their train-period event counts. Use a pipeline (scaler + logistic regression) and report ROC AUC.', s: `from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-
-feats = train.pivot_table(index="visitorid", columns="event", values="itemid",
-                          aggfunc="count", fill_value=0, observed=True)
-y = feats.index.isin(test.loc[test["event"] == "transaction", "visitorid"])
-Xtr, Xte, ytr, yte = train_test_split(feats, y, test_size=0.2, stratify=y, random_state=0)
-model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000, class_weight="balanced"))
-model.fit(Xtr, ytr)
-print(roc_auc_score(yte, model.predict_proba(Xte)[:, 1]))`, n: ['Features come from the past and the label from the future, so nothing leaks.'] },
-      { id: 'sk2', p: 'Tune C with 5-fold cross-validation on ROC AUC.', s: `from sklearn.model_selection import GridSearchCV
-
-gs = GridSearchCV(model, {"logisticregression__C": [0.01, 0.1, 1, 10]},
-                  scoring="roc_auc", cv=5)
-gs.fit(Xtr, ytr)
-print(gs.best_params_, gs.best_score_)` },
-      { id: 'sk3', p: 'Factorize the sparse matrix X with TruncatedSVD (64 dims) and score all items for user 0.', s: `from sklearn.decomposition import TruncatedSVD
-
-svd = TruncatedSVD(n_components=64, random_state=0)
-U = svd.fit_transform(X)        # users × 64
-V = svd.components_.T           # items × 64
-scores = U[0] @ V.T
-top20 = i_index[np.argsort(-scores)[:20]]` }
-    ] },
     { t: 'PyTorch', items: [
       { id: 'pt1', p: 'Create tensors on the GPU, add a batch dimension, concatenate and stack, and print dtypes, devices and shapes.', s: `import torch
 
@@ -3333,7 +3429,11 @@ agent = create_agent(model=model, tools=[stock_level],
                      system_prompt="Answer questions about stock using the tools.")
 out = agent.invoke({"messages": [{"role": "user", "content": "Is item 42 in stock?"}]})
 print(out["messages"][-1].content)`, n: ['The docstring and argument names become part of the prompt, so write them for the model.'] },
-      { id: 'lc4', p: 'Run the extractor over 50 ESCI product titles concurrently, and measure category accuracy on 20 titles you labelled by hand.', s: `titles = esci["product_title"].head(50).tolist()
+      { id: 'lc4', p: 'Run the extractor over 50 ESCI product titles concurrently, and measure category accuracy on 20 titles you labelled by hand.', s: `import pandas as pd
+
+esci = pd.read_parquet("data/shopping_queries_dataset_products.parquet")
+esci = esci[esci["product_locale"] == "us"]
+titles = esci["product_title"].head(50).tolist()
 results = extractor.batch(titles, config={"max_concurrency": 4})
 
 gold = {...}   # 20 titles you labelled: title -> category
@@ -3426,20 +3526,6 @@ g.add_edge(START, "llm")
 g.add_conditional_edges("llm", should_continue, ["tools", END])
 g.add_edge("tools", "llm")
 app = g.compile()`, n: ['This is what create_agent builds for you. Knowing the loop lets you add steps such as validation, retries or a human approval.'] }
-    ] },
-    { t: 'Git and shell', items: [
-      { id: 'gs1', p: 'Create a feature branch, commit in two steps, rebase onto an updated main, resolve a conflict and push.', s: `git switch -c feat/eval-metrics
-git add -p                      # stage hunks deliberately
-git commit -m "Add recall@k and ndcg@k"
-git fetch origin && git rebase origin/main
-# fix conflicts in the editor, then:
-git add <files> && git rebase --continue
-git push -u origin feat/eval-metrics` },
-      { id: 'gs2', p: 'Find the five largest files under data/ and count the lines of Python in src/.', s: `du -ah data | sort -rh | head -5
-find src -name "*.py" -print0 | xargs -0 wc -l | tail -1` },
-      { id: 'gs3', p: 'Check what is using the GPU, which process listens on port 8000, and follow the API log.', s: `nvidia-smi                      # or: watch -n1 nvidia-smi
-ss -ltnp | grep 8000
-tail -f logs/api.log | grep -i error` }
     ] }
   ],
   build: { t: 'Data-to-model warm-up', d: 'One notebook that loads RetailRocket with pandas, makes a time split, trains the PyTorch matrix factorization model from the drills on the 4090, and compares Recall@20 with a popularity baseline. Rough is fine; working end to end is the goal.', acc: ['Runs top to bottom on a fresh kernel in under 10 minutes', 'The split is by time, and an assert proves it', 'Prints Recall@20 for popularity and for the MF model, even if MF loses'] },
@@ -3861,15 +3947,6 @@ const RESUME_BULLETS = [
 /* ---------- ML engineer track: papers with video explainers, per week ---------- */
 const YT = id => 'https://www.youtube.com/watch?v=' + id;
 const WATCH = {
-  wp: [
-    { kind: 'Paper', t: 'PyTorch: An Imperative Style, High-Performance Deep Learning Library', u: 'https://arxiv.org/abs/1912.01703', s: 'Paszke et al. · NeurIPS 2019', w: 'Why PyTorch runs eagerly and how autograd records operations as they happen.',
-      v: [{ t: 'The spelled-out intro to neural networks and backpropagation: building micrograd', u: YT('VMj-3S1tku0'), k: 'Andrej Karpathy · builds autograd from scratch' }] },
-    { kind: 'Paper', t: 'Data Structures for Statistical Computing in Python', u: 'https://doi.org/10.25080/Majora-92bf1922-00a', s: 'McKinney · SciPy 2010 (the pandas paper)', w: 'The design behind DataFrame, indexes and group-by.',
-      v: [{ t: 'Complete Python Pandas Data Science Tutorial (2025 updated edition)', u: YT('2uvysYbKdjM'), k: 'Keith Galli · tutorial' }] },
-    { kind: 'Paper', t: 'ReAct: Synergizing Reasoning and Acting in Language Models', u: 'https://arxiv.org/abs/2210.03629', s: 'Yao et al. · ICLR 2023', w: 'The reason-act-observe loop that create_agent and the LangGraph tool loop implement.',
-      v: [{ t: 'ReAct: Synergizing Reasoning and Acting in Language Models', u: YT('KwH6-CEDwEQ'), k: 'Paper explainer' },
-          { t: 'LangChain Academy: Introduction to LangGraph', u: YT('29XE10U6ooc'), k: 'LangChain · course intro' }] }
-  ],
   w0: [
     { kind: 'Paper', t: 'Hidden Technical Debt in Machine Learning Systems', u: 'https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html', s: 'Sculley et al. · NeurIPS 2015', w: 'Why the model is the small box in a production ML system; the frame for this whole plan.',
       v: [{ t: 'Machine Learning, Technical Debt, and You', u: YT('V18AsBIHlWs'), k: 'D. Sculley · author talk' },
@@ -4010,12 +4087,21 @@ function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); 
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
 
 /* ----- items, progress ----- */
+function stepItems(w, s) {
+  return [...(s.watch || []), ...(s.read || []), ...(s.tasks || [])].map(x => `${w.id}:${x.id}`)
+    .concat((s.drills || []).map(d => `${w.id}:x-${d}`));
+}
+function drillById(w, id) {
+  for (const g of w.drills) for (const d of g.items) if (d.id === id) return d;
+  return null;
+}
 function weekItems(w) {
   const ids = [];
+  if (w.steps) w.steps.forEach(s => ids.push(...stepItems(w, s)));
   (w.watch || []).forEach((_, i) => ids.push(`${w.id}:v${i}`));
   w.read.forEach((_, i) => ids.push(`${w.id}:r${i}`));
   w.prac.forEach((_, i) => ids.push(`${w.id}:p${i}`));
-  (w.drills || []).forEach(g => g.items.forEach(d => ids.push(`${w.id}:x-${d.id}`)));
+  if (!w.steps) (w.drills || []).forEach(g => g.items.forEach(d => ids.push(`${w.id}:x-${d.id}`)));
   ids.push(`${w.id}:b`);
   w.done.forEach((_, i) => ids.push(`${w.id}:d${i}`));
   w.iq.forEach((_, i) => ids.push(`${w.id}:i${i}`));
@@ -4154,6 +4240,35 @@ function watchBlock(w) {
   });
   return h + `</ul></section>`;
 }
+const TK_OPEN = {};
+document.addEventListener('toggle', e => { const d = e.target; if (d.dataset && d.dataset.ks) TK_OPEN[d.dataset.ks] = d.open; }, true);
+function stepsBlock(w) {
+  const stepDone = s => stepItems(w, s).every(id => TK.prog.done[id]);
+  const nDone = w.steps.filter(stepDone).length, total = w.steps.reduce((a, s) => a + s.h, 0);
+  let h = `<section class="tk-sec"><h3>Step by step <span>${nDone} of ${w.steps.length} steps done · ${total} h</span></h3>`;
+  if (w.rules) h += `<ul class="tk-rules">${w.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+  h += `<ol class="tk-steps">`;
+  w.steps.forEach((s, si) => {
+    const ids = stepItems(w, s), got = ids.filter(id => TK.prog.done[id]).length, fin = got === ids.length;
+    const key = `${w.id}:${s.id}`, open = key in TK_OPEN ? TK_OPEN[key] : si === w.steps.findIndex(x => !stepDone(x));
+    h += `<li class="tk-step${fin ? ' fin' : ''}"><details data-ks="${esc(key)}"${open ? ' open' : ''}><summary><span class="tk-sn" aria-hidden="true">${fin ? '✓' : si}</span><span class="tk-st"><b>${si === 0 ? '' : `Step ${si}: `}${esc(s.n)}</b><small>${esc(s.day)} · ${s.h} h · ${got}/${ids.length} done</small></span></summary><div class="tk-sbody"><p class="tk-why">${esc(s.why)}</p>`;
+    if (s.watch && s.watch.length) h += `<h4 class="tk-dg">Watch</h4><ul class="tk-list">${s.watch.map(v => `<li>${check(`${w.id}:${v.id}`, `<span class="tk-it"><a class="tk-vlink" href="${esc(v.u)}" target="_blank" rel="noopener"><span class="tk-play" aria-hidden="true"></span>${esc(v.t)}</a><small>${esc(v.k)}</small></span>`)}</li>`).join('')}</ul>`;
+    if (s.read && s.read.length) h += `<h4 class="tk-dg">Read</h4><ul class="tk-list">${s.read.map(r => `<li>${check(`${w.id}:${r.id}`, `<span class="tk-it"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a><small>${esc(r.s)} · ${r.m} min</small><span class="tk-why">${esc(r.w)}</span></span>`)}</li>`).join('')}</ul>`;
+    if (s.tasks && s.tasks.length) h += `<h4 class="tk-dg">Do</h4><ul class="tk-list">${s.tasks.map(t => `<li>${check(`${w.id}:${t.id}`, `<span class="tk-it">${esc(t.t)}</span>`)}</li>`).join('')}</ul>`;
+    if (s.drills && s.drills.length) {
+      const solved = s.drills.filter(d => TK.prog.done[`${w.id}:x-${d}`]).length;
+      h += `<h4 class="tk-dg">Drills <span>${solved}/${s.drills.length} solved alone</span></h4><ul class="tk-list">`;
+      s.drills.forEach((id, i) => {
+        const d = drillById(w, id);
+        if (!d) return;
+        h += `<li class="tk-drill">${check(`${w.id}:x-${d.id}`, `<span class="tk-it"><span class="tk-dn">${i + 1}</span>${esc(d.p)}</span>`)}<details class="tk-sol tk-dsol"><summary>Solution</summary><pre class="math tk-code">${esc(d.s)}</pre>${d.n ? `<ul>${d.n.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</details></li>`;
+      });
+      h += `</ul>`;
+    }
+    h += `<p class="tk-ckpt"><b>Checkpoint:</b> ${esc(s.check)}</p></div></details></li>`;
+  });
+  return h + `</ol></section>`;
+}
 function weekDetail(w) {
   const pct = Math.round(100 * weekPct(w));
   let h = `<p class="tk-eyebrow">${wLong(w)} · ${fmtRange(w.start, w.end)} · ${w.h} hours ${phaseTag(w)}${w.light ? `<span class="tk-light">${esc(w.light)}</span>` : ''}</p>`;
@@ -4161,6 +4276,13 @@ function weekDetail(w) {
   h += `<div class="tk-meter" role="img" aria-label="${pct}% of this week done"><i style="width:${pct}%"></i></div><p class="tk-meterl">${pct}% of this week’s items done</p>`;
   const vl = vacLines(w);
   if (vl.length) h += `<div class="tk-vac"><h4>From the vacancy</h4>${vl.map(r => `<p lang="ru">${esc(r.ru)}</p>`).join('')}</div>`;
+  if (w.steps) h += stepsBlock(w);
+  else h += legacyBlocks(w);
+  h += `<section class="tk-build"><h3>Build: ${esc(w.build.t)}</h3><p>${esc(w.build.d)}</p><h4>Acceptance criteria</h4><ul>${w.build.acc.map(a => `<li>${esc(a)}</li>`).join('')}</ul>${check(`${w.id}:b`, '<span class="tk-it"><b>Milestone done</b> and committed</span>')}</section>`;
+  return h + weekTail(w);
+}
+function legacyBlocks(w) {
+  let h = '';
   if (w.days) h += `<section class="tk-sec"><h3>Day by day <span>${w.days.reduce((a, d) => a + d.h, 0)} h</span></h3><div class="tw"><table class="shapes tk-days"><thead><tr><th scope="col">Day</th><th scope="col" class="n">Hours</th><th scope="col">Focus</th><th scope="col">Drills</th></tr></thead><tbody>${w.days.map(d => `<tr><td class="m">${esc(d.d)}</td><td class="n">${d.h}</td><td>${esc(d.t)}</td><td>${esc(d.g)}</td></tr>`).join('')}</tbody></table></div></section>`;
   if (w.watch && w.watch.length) h += watchBlock(w);
   h += `<section class="tk-sec"><h3>Read <span>${w.read.reduce((a, r) => a + r.m, 0) >= 60 ? `about ${Math.round(w.read.reduce((a, r) => a + r.m, 0) / 60 * 2) / 2} h` : ''}</span></h3><ul class="tk-list">${w.read.map((r, i) => `<li>${check(`${w.id}:r${i}`, `<span class="tk-it"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a><small>${esc(r.s)} · ${r.m} min</small><span class="tk-why">${esc(r.w)}</span></span>`)}</li>`).join('')}</ul></section>`;
@@ -4178,8 +4300,10 @@ function weekDetail(w) {
     }
     h += `</section>`;
   }
-  h += `<section class="tk-build"><h3>Build: ${esc(w.build.t)}</h3><p>${esc(w.build.d)}</p><h4>Acceptance criteria</h4><ul>${w.build.acc.map(a => `<li>${esc(a)}</li>`).join('')}</ul>${check(`${w.id}:b`, '<span class="tk-it"><b>Milestone done</b> and committed</span>')}</section>`;
-  h += quizBlock(w);
+  return h;
+}
+function weekTail(w) {
+  let h = quizBlock(w);
   h += `<section class="tk-sec"><h3>Interview questions</h3><p class="cap">Answer aloud first, then open the outline. Tick the ones you can answer cleanly in about two minutes.</p>${w.iq.map((q, i) => iqCard(`${w.id}:i${i}`, q)).join('')}</section>`;
   h += `<section class="tk-sec"><h3>Done when</h3><ul class="tk-list">${w.done.map((d, i) => `<li>${check(`${w.id}:d${i}`, `<span class="tk-it">${esc(d)}</span>`)}</li>`).join('')}</ul></section>`;
   h += `<section class="tk-sec"><h3><label for="${domId('note-' + w.id)}">Notes for ${wLong(w).toLowerCase()}</label></h3><textarea id="${domId('note-' + w.id)}" data-kn="${w.id}" rows="5" placeholder="What clicked, what didn’t, numbers you measured, questions to revisit.">${esc(TK.prog.notes[w.id] || '')}</textarea></section>`;
@@ -4319,6 +4443,10 @@ function viewRes() {
   h += `<section class="tk-sec"><h3>Datasets</h3><ul class="tk-list">${DATASETS.map(d => `<li><span class="tk-it"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><span class="tk-why">${esc(d.d)}</span></span></li>`).join('')}</ul></section>`;
   for (const w of TRACK_WEEKS) {
     h += `<section class="tk-sec"><h3><button class="tk-wkchip" data-kgo="${w.n}">${wl(w)}</button> ${esc(w.title)}</h3>`;
+    if (w.steps) {
+      h += w.steps.map((s, si) => `<h4 class="tk-dg">${si ? `Step ${si}: ` : ''}${esc(s.n)}</h4><ul class="tk-list">${(s.watch || []).map(v => `<li>${check(`${w.id}:${v.id}`, `<span class="tk-it"><a class="tk-vlink" href="${esc(v.u)}" target="_blank" rel="noopener"><span class="tk-play" aria-hidden="true"></span>${esc(v.t)}</a><small>${esc(v.k)}</small></span>`)}</li>`).join('')}${(s.read || []).map(r => `<li>${check(`${w.id}:${r.id}`, `<span class="tk-it"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a><small>${esc(r.s)} · ${r.m} min</small></span>`)}</li>`).join('')}</ul>`).join('') + `</section>`;
+      continue;
+    }
     if (w.watch && w.watch.length) h += `<h4 class="tk-dg">Papers and videos</h4><ul class="tk-list">${w.watch.map((p, i) => `<li class="tk-paper">${check(`${w.id}:v${i}`, `<span class="tk-it"><span class="tk-kind">${esc(p.kind)}</span><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.t)}</a><small>${esc(p.s)}</small></span>`)}${vidLinks(p)}</li>`).join('')}</ul><h4 class="tk-dg">Reading</h4>`;
     h += `<ul class="tk-list">${w.read.map((r, i) => `<li>${check(`${w.id}:r${i}`, `<span class="tk-it"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a><small>${esc(r.s)} · ${r.m} min</small></span>`)}</li>`).join('')}</ul></section>`;
   }
